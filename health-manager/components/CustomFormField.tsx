@@ -14,20 +14,42 @@ import { Control } from 'react-hook-form'
 import { FormFieldType } from './forms/PatientForm'
 
 interface CustomProps {
-    control: Control<any>
-    fieldType: FormFieldType
+  control: Control<any>;
+  name: string;
+  label?: string;
+  placeholder?: string;
+  iconSrc?: string;
+  iconAlt?: string;
+  disabled?: boolean;
+  dateFormat?: string;
+  showTimeSelect?: boolean;
+  children?: React.ReactNode;
+  renderSkeleton?: (field: any) => React.ReactNode;
+  fieldType: FormFieldType;
 }
-const CustomFormField = ( { 
-    control, fieldType, name, label, placeholder,   }: CustomProps) => {
+
+const RenderField = ({ field, props }: {field: any, props: CustomProps }) =>{
+  return(
+    <Input 
+    type='text'
+    placeholder = "Yadneya Joshi"
+    />
+  )
+}
+
+const CustomFormField = ( props: CustomProps) => {
+  const { control, fieldType, name, label } = props;
   return (
     <FormField
           control={control}
           name={name}
           render={({ field }) => (
             <FormItem className='flex-1'>
-                {fieldType !== FormFieldType.CHECKBOX && label (
+                {fieldType !== FormFieldType.CHECKBOX && label && (
                     <FormLabel>{label}</FormLabel>
                 )}
+                <RenderField field ={field} props = {props}/>
+                <FormMessage className='shad-error' />
             </FormItem>
             
           )}
