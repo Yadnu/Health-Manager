@@ -33,7 +33,7 @@ interface CustomProps {
   fieldType: FormFieldType;
 }
 
-const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
+const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
   switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
@@ -56,46 +56,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           </FormControl>
         </div>
       );
-    case FormFieldType.TEXTAREA:
-      return (
-        <FormControl>
-          <Textarea
-            placeholder={props.placeholder}
-            {...field}
-            className="shad-textArea"
-            disabled={props.disabled}
-          />
-        </FormControl>
-      );
-    case FormFieldType.PHONE_INPUT:
-      return (
-        <FormControl>
-          <PhoneInput
-            defaultCountry="US"
-            placeholder={props.placeholder}
-            international
-            withCountryCallingCode
-            value={field.value as E164Number | undefined}
-            onChange={field.onChange}
-            className="input-phone"
-          />
-        </FormControl>
-      );
-      return (
-        <FormControl>
-          <div className="flex items-center gap-4">
-            <Checkbox
-              id={props.name}
-              checked={field.value}
-              onCheckedChange={field.onChange}
-            />
-            <label htmlFor={props.name} className="checkbox-label">
-              {props.label}
-            </label>
-          </div>
-        </FormControl>
-      );
-      return props.renderSkeleton ? props.renderSkeleton(field) : null;
+    
     default:
       return null;
   }
